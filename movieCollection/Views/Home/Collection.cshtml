@@ -1,0 +1,35 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Movie>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Year</th>
+        <th>Director</th>
+        <th>Rating</th>
+        <th>Edited</th>
+        <th>Lent To</th>
+        <th>Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m.Category</td>
+            <td>@m.Title</td>
+            <td>@m.Year</td>
+            <td>@m.Director</td>
+            <td>@m.Rating</td>
+            <td>@m.Edited</td>
+            <td>@m.LentTo</td>
+            <td>@m.Notes</td>
+        </tr>
+    }
+    </tbody>
+</table>
