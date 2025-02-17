@@ -23,7 +23,7 @@ namespace movieCollection.Models
         public int Year { get; set; }
 
         // Required field for the director of the movie
-        [Required(ErrorMessage = "Director is required")]
+        
         public string? Director { get; set; }
 
 
