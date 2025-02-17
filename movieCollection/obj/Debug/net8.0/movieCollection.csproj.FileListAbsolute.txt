@@ -131,3 +131,4 @@
 /Users/haydenwhalen/RiderProjects/movieCollection/movieCollection/bin/Debug/net8.0/runtimes/win-x86/native/e_sqlite3.dll
 /Users/haydenwhalen/RiderProjects/movieCollection/movieCollection/obj/Debug/net8.0/movieCollection.csproj.AssemblyReference.cache
 /Users/haydenwhalen/RiderProjects/movieCollection/movieCollection/obj/Debug/net8.0/movieCol.AAA0DD06.Up2Date
+/Users/haydenwhalen/RiderProjects/movieCollection/movieCollection/obj/Debug/net8.0/movieCollection.sourcelink.json
