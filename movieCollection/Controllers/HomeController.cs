@@ -45,4 +45,12 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    public IActionResult Collection()
+    {
+        // Get all movies from the database as a list
+        List<Movie> movies = _context.Movies.ToList();
+        return View(movies);
+    }
+
 }

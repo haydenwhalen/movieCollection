@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace movieCollection.Models
 {
@@ -10,6 +11,7 @@ namespace movieCollection.Models
 
         // Required field for the category of the movie
         [Required(ErrorMessage = "Category is required")]
+        [Column("CategoryId")]
         public string Category { get; set; }
 
         // Required field for the movie title
@@ -22,7 +24,8 @@ namespace movieCollection.Models
 
         // Required field for the director of the movie
         [Required(ErrorMessage = "Director is required")]
-        public string Director { get; set; }
+        public string? Director { get; set; }
+
 
         // Required field for the movie rating (e.g., G, PG, PG-13, R)
         [Required(ErrorMessage = "Rating is required")]
