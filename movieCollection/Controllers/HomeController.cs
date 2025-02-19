@@ -1,18 +1,17 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using movieCollection.Models;
 
 namespace movieCollection.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly MovieContext _context;
+    private MovieContext _context;
     
     // Single constructor accepting both dependencies
-    public HomeController(ILogger<HomeController> logger, MovieContext context)
+    public HomeController(MovieContext context)
     {
-        _logger = logger;
         _context = context;
     }
 
@@ -48,9 +47,14 @@ public class HomeController : Controller
 
     public IActionResult Collection()
     {
-        // Get all movies from the database as a list
-        List<Movie> movies = _context.Movies.ToList();
+        // Get all movies from the database as a list without including a scalar property.
+        var movies = _context.Movies.Include(x=>x.Category).ToList();
         return View(movies);
     }
 
+    public IActionResult Edit(int wallace)
+    {
+        var recordToEdit = _context.Movies.Single(x => x.MovieId == wallace);
+        return View("movieForm", recordToEdit);
+    }
 }

@@ -12,6 +12,12 @@ builder.Services.AddDbContext<MovieContext>(options =>
 }
     );
 
+var dbPath = Path.Combine(builder.Environment.ContentRootPath, "JoelHiltonMovieCollection.sqlite");
+builder.Configuration["ConnectionStrings:CollectionConnection"] = $"Data Source={dbPath}";
+builder.Services.AddDbContext<MovieContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("CollectionConnection")));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +37,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{wallace?}"); // wallace part is passed to part where you edit/delete in collection.cs
 
 app.Run();

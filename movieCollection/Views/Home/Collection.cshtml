@@ -4,8 +4,8 @@
 
 @model List<Movie>
 
-<table class="table">
-    <thead>
+<table class="table table-bordered">
+    <thead class = "fw-bold">
     <tr>
         <th>Category</th>
         <th>Title</th>
@@ -21,7 +21,7 @@
     @foreach (var m in Model)
     {
         <tr>
-            <td>@m.Category</td>
+            <td>@m.Category.CategoryName</td>
             <td>@m.Title</td>
             <td>@m.Year</td>
             <td>@m.Director</td>
@@ -29,6 +29,9 @@
             <td>@m.Edited</td>
             <td>@m.LentTo</td>
             <td>@m.Notes</td>
+
+            <td><a class="btn btn-info" asp-controller="Home" asp-action="Edit" asp-route-wallace ="@m.MovieId">Edit</a></td>   <!-- asp route wallace makes it so there's an ID to use when you want to edit or delete a record (so it knows which one to grab to edit / delete), wallace comes from bottom line in program.cs. -->
+            <td><a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-wallace ="@m.MovieId">Delete</a></td>
         </tr>
     }
     </tbody>
