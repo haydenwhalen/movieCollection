@@ -52,9 +52,19 @@ public class HomeController : Controller
         return View(movies);
     }
 
+    [HttpGet]
     public IActionResult Edit(int wallace)
     {
-        var recordToEdit = _context.Movies.Single(x => x.MovieId == wallace);
-        return View("movieForm", recordToEdit);
+        var editedRecord = _context.Movies.Single(x => x.MovieId == wallace);
+        return View("movieForm", editedRecord);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Movie updatedInfo)
+    {
+        _context.Update(updatedInfo);
+        _context.SaveChanges();
+        
+        return RedirectToAction("Collection");
     }
 }
