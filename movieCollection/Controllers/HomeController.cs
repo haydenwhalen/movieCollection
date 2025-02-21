@@ -37,26 +37,17 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult movieForm(Movie response)
     {
-        if (ModelState.IsValid)
+        if (response.MovieId == 0)
         {
-            if (response.MovieId == 0)
-            {
-                _context.Movies.Add(response);
-            }
-            else
-            {
-                _context.Movies.Update(response);
-            }
-    
-            _context.SaveChanges();
-            return RedirectToAction("Collection");
+            _context.Movies.Add(response);
         }
         else
         {
-            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName");
-            return View(response);
+            _context.Movies.Update(response);
         }
-        
+    
+        _context.SaveChanges();
+        return RedirectToAction("Collection");
     }
 
 
