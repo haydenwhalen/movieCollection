@@ -11,6 +11,8 @@ namespace movieCollection.Models
 
         [ForeignKey("CategoryId")]
         // Required field for the category of the movie
+        [Required(ErrorMessage = "Category is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a valid category")]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
@@ -20,6 +22,7 @@ namespace movieCollection.Models
 
         // Required field for the release year of the movie
         [Required(ErrorMessage = "Year is required")]
+        [Range(1888, int.MaxValue, ErrorMessage = "Year must be no lower than 1888")]
         public int Year { get; set; }
 
         // Director Field
@@ -41,6 +44,10 @@ namespace movieCollection.Models
         // Optional field for notes about the movie, limited to 25 characters
         [MaxLength(25, ErrorMessage = "Notes cannot exceed 25 characters")]
         public string? Notes { get; set; }
+        
+        [Required]
+        public string CopiedToPlex { get; set; } = "No";
+
     }
 }
 

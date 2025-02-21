@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using movieCollection.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace movieCollection.Controllers;
 
@@ -28,16 +29,38 @@ public class HomeController : Controller
     [HttpGet] 
     public IActionResult movieForm()
     {
-        return View();
+        ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName");
+        return View(new Movie());
     }
+
 
     [HttpPost]
     public IActionResult movieForm(Movie response)
     {
-        _context.Movies.Add(response); // adds record to a database
-        _context.SaveChanges(); // saves to database
-        return View();
+        if (ModelState.IsValid)
+        {
+            if (response.MovieId == 0)
+            {
+                _context.Movies.Add(response);
+            }
+            else
+            {
+                _context.Movies.Update(response);
+            }
+    
+            _context.SaveChanges();
+            return RedirectToAction("Collection");
+        }
+        else
+        {
+            ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName");
+            return View(response);
+        }
+        
     }
+
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -55,6 +78,7 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult Edit(int wallace)
     {
+        ViewBag.Categories = new SelectList(_context.Categories.ToList(), "CategoryId", "CategoryName");
         var editedRecord = _context.Movies.Single(x => x.MovieId == wallace);
         return View("movieForm", editedRecord);
     }
@@ -63,6 +87,23 @@ public class HomeController : Controller
     public IActionResult Edit(Movie updatedInfo)
     {
         _context.Update(updatedInfo);
+        _context.SaveChanges();
+        
+        return RedirectToAction("Collection");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int wallace)
+    {
+        var recordDelete = _context.Movies.Single(x => x.MovieId == wallace);
+        
+        return View(recordDelete);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Movie recordDelete)
+    {
+        _context.Movies.Remove(recordDelete); // removes the record
         _context.SaveChanges();
         
         return RedirectToAction("Collection");

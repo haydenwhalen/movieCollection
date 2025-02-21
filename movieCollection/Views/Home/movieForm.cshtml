@@ -11,15 +11,20 @@
 <div class="container mt-5">
    <h1>Movie Form</h1>
    <form asp-action="movieForm" method="post">
-       <!-- Hidden field for MovieId (important for editing) -->
        <input type="hidden" asp-for="MovieId" />
 
-       <!-- Category Field -->
+
+    <!-- Category Field -->
        <div class="mb-3">
            <label asp-for="CategoryId" class="form-label">Category</label>
-           <input asp-for="CategoryId" class="form-control" required />
+           <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select" required>
+               <option value="0">--Select Category--</option>
+           </select>
+
            <span asp-validation-for="CategoryId" class="text-danger"></span>
        </div>
+
+
 
        <!-- Title Field -->
        <div class="mb-3">
@@ -82,6 +87,7 @@
 
        <!-- Submit Button -->
        <button type="submit" class="btn btn-primary">Submit</button>
+       <div asp-validation-summary="All"></div> <!-- PRINTS OUT ERROR MESSAGE FOR ANYTHING WRONG IN MODEL -->
    </form>
 </div>
 
